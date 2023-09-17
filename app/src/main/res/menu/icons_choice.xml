@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/icLike"
+        android:icon="@drawable/like"
+        android:title="Like"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/icHeart"
+        android:icon="@drawable/love"
+        android:title="Love"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/icCare"
+        android:icon="@drawable/care"
+        android:title="Care"
+        app:showAsAction="always" />
+
+</menu>
