@@ -2,22 +2,33 @@ package com.example.exercise02_recycleview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 public class AdapterUserFacebook extends RecyclerView.Adapter<AdapterUserFacebook.ViewHolder> {
 
@@ -53,7 +64,6 @@ public class AdapterUserFacebook extends RecyclerView.Adapter<AdapterUserFaceboo
         holder.tvTimeStampFB.setText(userFacebook.getTime());
         holder.imgContentFB.setImageResource(userFacebook.getImageContent());
 
-
         holder.btnLike.setOnClickListener(view -> {
             if (isIconChanged) {
                 holder.btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.like, 0, 0, 0);
@@ -72,49 +82,70 @@ public class AdapterUserFacebook extends RecyclerView.Adapter<AdapterUserFaceboo
         });
     }
 
+    private PopupWindow popupWindow;
+
+
+    @SuppressLint("MissingInflatedId")
     private void showIcons(Button btnLike) {
-        PopupMenu popupMenu = new PopupMenu(context, btnLike);
-        popupMenu.getMenuInflater().inflate(R.menu.icons_choice, popupMenu.getMenu());
+        View popView = LayoutInflater.from(context).inflate(R.layout.popup_icons, null);
+        popupWindow = new PopupWindow(popView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setOutsideTouchable(true);
 
-        // Đặt biểu tượng cho mỗi mục
-        for (int i = 0; i < popupMenu.getMenu().size(); i++) {
-            MenuItem item = popupMenu.getMenu().getItem(i);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            TooltipCompat.setTooltipText(item.getActionView(), item.getTitle());
-            switch (item.getItemId()) {
-                case R.id.icLike:
-                    item.setIcon(R.drawable.like);
-                    break;
-                case R.id.icHeart:
-                    item.setIcon(R.drawable.love);
-                    break;
-                case R.id.icCare:
-                    item.setIcon(R.drawable.care);
-                    break;
-                // Đặt biểu tượng cho các mục lựa chọn khác nếu cần
-            }
-        }
+        ImageView imgLike, imgLove, imgCare, imgHaha, imgWow, imgSad, imgAngry;
+        imgLike = popView.findViewById(R.id.icLikePU);
+        imgLove = popView.findViewById(R.id.icLovePU);
+        imgCare = popView.findViewById(R.id.icCarePU);
+        imgHaha = popView.findViewById(R.id.icHavaPU);
+        imgWow = popView.findViewById(R.id.icWowPU);
+        imgSad = popView.findViewById(R.id.icSadPU);
+        imgAngry = popView.findViewById(R.id.icAngryPU);
 
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.icLike:
-                        Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.icHeart:
-                        Toast.makeText(context, "Tym", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.icCare:
-                        Toast.makeText(context, "Care", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return true;
-            }
+        Rect rect = new Rect();
+        btnLike.getGlobalVisibleRect(rect);
+        int x = rect.right - 100; // Tọa độ x của view cha
+        int y = rect.top - popupWindow.getHeight() - 80;// Tọa độ y của view cha trừ đi chiều cao của PopupWindow
 
+
+        imgLike.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.like, 0, 0, 0);
+            btnLike.setText(" Like");
+            popupWindow.dismiss();
+        });
+        imgLove.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.love, 0, 0, 0);
+            btnLike.setText(" Love");
+            popupWindow.dismiss();
+        });
+        imgHaha.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.haha, 0, 0, 0);
+            btnLike.setText(" Haha");
+            popupWindow.dismiss();
         });
 
-        popupMenu.show();
+        imgCare.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.care, 0, 0, 0);
+            btnLike.setText(" Care");
+            popupWindow.dismiss();
+        });
+
+        imgWow.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.wow, 0, 0, 0);
+            btnLike.setText(" Wow");
+            popupWindow.dismiss();
+        });
+
+        imgSad.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sad, 0, 0, 0);
+            btnLike.setText(" Sad");
+            popupWindow.dismiss();
+        });
+
+        imgAngry.setOnClickListener(view -> {
+            btnLike.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.angry, 0, 0, 0);
+            btnLike.setText(" Angry");
+            popupWindow.dismiss();
+        });
+        popupWindow.showAtLocation(btnLike, 0, x, y);
     }
 
     private boolean isIconChanged = false;
@@ -123,6 +154,7 @@ public class AdapterUserFacebook extends RecyclerView.Adapter<AdapterUserFaceboo
     public int getItemCount() {
         return mUserFacebookArrayList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAvatarUser;

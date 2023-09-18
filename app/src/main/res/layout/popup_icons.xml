@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_background_popup_icons"
+    android:orientation="horizontal"
+    android:outlineAmbientShadowColor="@color/black">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icLikePU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/like_large" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icLovePU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/love_large" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icHavaPU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/hava_large" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icCarePU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/care_large" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icWowPU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/wow_large" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icSadPU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/sad_large" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icAngryPU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onIconClick"
+        android:padding="8dp"
+        android:src="@drawable/angry_large" />
+
+
+</LinearLayout>
